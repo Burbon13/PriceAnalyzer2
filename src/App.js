@@ -1,11 +1,14 @@
 import React from 'react';
+import {ThemeProvider} from '@material-ui/core/styles';
+import theme from './lib/theme'
+import SideMenu from "./components/SideMenu";
 
 function App() {
-  return (
-    <div className="App">
-      Hello world!
-    </div>
-  );
+    return (
+        <ThemeProvider theme={theme}>
+            <SideMenu/>
+        </ThemeProvider>
+    );
 }
 
 export default App;
