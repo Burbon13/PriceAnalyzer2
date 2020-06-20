@@ -29,7 +29,10 @@ const useStyles = makeStyles((theme) => ({
     },
     content: {
         flexGrow: 1,
-        padding: theme.spacing(3),
+        marginLeft: theme.spacing(5),
+        marginRight: theme.spacing(2),
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
     },
 }));
 

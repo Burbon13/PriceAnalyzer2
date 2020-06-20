@@ -1,25 +1,30 @@
 import React, {useState} from "react";
 import AppBar from '@material-ui/core/AppBar';
+import Container from "@material-ui/core/Container";
 import useStyles from "./styles";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from '@material-ui/icons/Menu';
 import clsx from 'clsx';
 import Drawer from "@material-ui/core/Drawer";
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import List from "@material-ui/core/List";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from '@material-ui/icons/Menu';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import SettingsIcon from '@material-ui/icons/Settings';
 import InfoIcon from '@material-ui/icons/Info';
 import Divider from "@material-ui/core/Divider";
 
-const SideMenu = () => {
+const SideMenu = ({history, ...props}) => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
 
     const handleDrawerOpenClose = () => {
         setOpen(!open);
+    };
+
+    const changePage = (page) => {
+        history.push(page)
     };
 
     return (
@@ -35,32 +40,35 @@ const SideMenu = () => {
             >
                 <div className={classes.toolbar}>
                     <IconButton onClick={handleDrawerOpenClose}>
-                        <MenuIcon/>
+                        <MenuIcon color="secondary"/>
                     </IconButton>
                 </div>
                 <Divider/>
                 <List>
-                    <ListItem button key={'Products'}>
+                    <ListItem button key={'Products'} onClick={() => changePage('/dashboard')}>
                         <ListItemIcon>
-                            <DashboardIcon/>
+                            <DashboardIcon color="secondary"/>
                         </ListItemIcon>
                         <ListItemText primary={'Products'}/>
                     </ListItem>
-                    <ListItem button key={'Settings'}>
+                    <ListItem button key={'Settings'} onClick={() => changePage('/settings')}>
                         <ListItemIcon>
-                            <SettingsIcon/>
+                            <SettingsIcon color="secondary"/>
                         </ListItemIcon>
                         <ListItemText primary={'Settings'}/>
                     </ListItem>
-                    <ListItem button key={'About'}>
+                    <ListItem button key={'About'} onClick={() => changePage('/info')}>
                         <ListItemIcon>
-                            <InfoIcon/>
+                            <InfoIcon color="secondary"/>
                         </ListItemIcon>
                         <ListItemText primary={'About'}/>
                     </ListItem>
                 </List>
             </Drawer>
             <main className={classes.content}>
+                <Container>
+                    {props.children}
+                </Container>
             </main>
         </div>
     );
