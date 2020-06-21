@@ -9,7 +9,7 @@ const products = [
         lowestPrice: 3599.90,
         currency: 'RON',
         store: 'eMag',
-        lastUpdateDate: new Date().toUTCString()
+        lastUpdateDate: new Date()
     },
     {
         name: 'Sony XMH3000',
@@ -17,7 +17,7 @@ const products = [
         lowestPrice: 1450.90,
         currency: 'RON',
         store: 'Altex',
-        lastUpdateDate: new Date().toUTCString()
+        lastUpdateDate: new Date()
     },
     {
         name: 'MacBook Pro 16',
@@ -25,7 +25,7 @@ const products = [
         lowestPrice: 14500.90,
         currency: 'RON',
         store: 'eMag',
-        lastUpdateDate: new Date().toUTCString()
+        lastUpdateDate: new Date()
     }
 ]
 
