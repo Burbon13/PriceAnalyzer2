@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) => ({
         flexWrap: 'wrap',
         borderColor: theme.palette.primary.light,
         margin: theme.spacing(1),
+        borderWidth: '3px'
     },
     item: {
         margin: theme.spacing(1),
@@ -17,8 +18,7 @@ const useStyles = makeStyles((theme) => ({
     manageButton: {
         margin: theme.spacing(1),
         padding: theme.spacing(1),
-        borderColor: theme.palette.secondary.light,
-        width: '268px'
+        width: '268px',
     },
 }));
 
