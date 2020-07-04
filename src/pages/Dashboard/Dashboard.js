@@ -1,6 +1,8 @@
 import React from "react";
 import useStyles from "./styles";
 import ProductListItem from "../../components/ProductListItem";
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
 let products = [
     {
@@ -62,6 +64,9 @@ const Dashboard = () => {
 
     return (
         <div className={classes.root}>
+            <Fab size="medium" color="secondary" aria-label="add" className={classes.fab}>
+                <AddIcon />
+            </Fab>
             {products.map((product, index) => {
                 return <ProductListItem key={`product_${index}`} product={product} className={classes.item}/>
             })}
