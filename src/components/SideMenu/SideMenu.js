@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import AppBar from '@material-ui/core/AppBar';
 import Container from "@material-ui/core/Container";
 import useStyles from "./styles";
 import clsx from 'clsx';
@@ -40,26 +39,26 @@ const SideMenu = ({history, ...props}) => {
             >
                 <div className={classes.toolbar}>
                     <IconButton onClick={handleDrawerOpenClose}>
-                        <MenuIcon color="secondary"/>
+                        <MenuIcon color="primary"/>
                     </IconButton>
                 </div>
                 <Divider/>
                 <List>
                     <ListItem button key={'Products'} onClick={() => changePage('/dashboard')}>
                         <ListItemIcon>
-                            <DashboardIcon color="secondary"/>
+                            <DashboardIcon color="primary"/>
                         </ListItemIcon>
                         <ListItemText primary={'Products'}/>
                     </ListItem>
                     <ListItem button key={'Settings'} onClick={() => changePage('/settings')}>
                         <ListItemIcon>
-                            <SettingsIcon color="secondary"/>
+                            <SettingsIcon color="primary"/>
                         </ListItemIcon>
                         <ListItemText primary={'Settings'}/>
                     </ListItem>
                     <ListItem button key={'About'} onClick={() => changePage('/info')}>
                         <ListItemIcon>
-                            <InfoIcon color="secondary"/>
+                            <InfoIcon color="primary"/>
                         </ListItemIcon>
                         <ListItemText primary={'About'}/>
                     </ListItem>
