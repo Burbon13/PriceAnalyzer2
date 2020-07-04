@@ -63,7 +63,7 @@ const Dashboard = () => {
     return (
         <div className={classes.root}>
             {products.map((product, index) => {
-                return <ProductListItem product={product} className={classes.item}/>
+                return <ProductListItem key={`product_${index}`} product={product} className={classes.item}/>
             })}
         </div>
     );

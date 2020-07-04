@@ -4,8 +4,6 @@ const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-around',
-        alignItems: 'baseline',
         flexWrap: 'wrap',
         borderColor: theme.palette.primary.light,
         margin: theme.spacing(1),
@@ -15,7 +13,13 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(1),
         borderColor: theme.palette.secondary.light,
         width: '250px'
-    }
+    },
+    manageButton: {
+        margin: theme.spacing(1),
+        padding: theme.spacing(1),
+        borderColor: theme.palette.secondary.light,
+        width: '268px'
+    },
 }));
 
 export default useStyles;

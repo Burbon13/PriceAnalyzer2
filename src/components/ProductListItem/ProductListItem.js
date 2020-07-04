@@ -26,7 +26,7 @@ const ProductListItem = ({product}) => {
             <Paper variant={"outlined"} className={classes.item}>
                 {product.store}
             </Paper>
-            <Button variant={"outlined"} color={"secondary"} className={classes.item}>
+            <Button variant={"outlined"} color={"secondary"} className={classes.manageButton}>
                 Manage
             </Button>
         </Paper>
