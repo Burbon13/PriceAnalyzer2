@@ -3,12 +3,14 @@ import useStyles from "./styles";
 import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/Button";
 import {prettyDateTimeString} from '../../lib/utils/date-utils'
+import { useHistory } from 'react-router-dom';
 
-const ProductListItem = ({product}) => {
+const ProductListItem = ({product, ...props}) => {
     const classes = useStyles();
+    const history = useHistory();
 
     const onManageClicked = () => {
-
+        history.push('/product');
     };
 
     return (
@@ -30,7 +32,11 @@ const ProductListItem = ({product}) => {
             <Paper variant={"outlined"} className={classes.item}>
                 {product.store}
             </Paper>
-            <Button variant="outlined" color={"secondary"} className={classes.manageButton}>
+            <Button
+                variant="outlined"
+                color={"secondary"}
+                className={classes.manageButton}
+                onClick={onManageClicked}>
                 Manage
             </Button>
         </Paper>

@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     history: {
         marginTop: theme.spacing(8),
         margin: 'auto',
-        width: '90%'
+        width: '95%'
     },
     delete: {
         display: 'flex',

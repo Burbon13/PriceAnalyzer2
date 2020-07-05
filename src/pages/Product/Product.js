@@ -6,9 +6,32 @@ import {Line} from 'react-chartjs-2';
 import {productHistoryToLineData} from "../../lib/utils/chart-converters";
 import {prettyDateTimeString} from "../../lib/utils/date-utils";
 import {averagePrice} from "../../lib/utils/stats-utils";
+import {useAlert} from "react-alert";
 
 const Product = ({product, loading, error, ...props}) => {
     const classes = useStyles();
+    const alert = useAlert();
+
+    const handleDelete = () => {
+        alert.show("Are you sure you want to delete?", {
+            title: "DELETE ACTION!",
+            type: "Info",
+            actions: [
+                {
+                    copy: "Delete",
+                    onClick: () => {
+
+                    }
+                },
+                {
+                    copy: "Cancel",
+                    onClick: () => {
+
+                    }
+                },
+            ]
+        });
+    };
 
     return (
         <div className={classes.root}>
@@ -63,7 +86,10 @@ const Product = ({product, loading, error, ...props}) => {
                 <Button variant="contained" color="primary" className={classes.modifyButton}>
                     MODIFY
                 </Button>
-                <Button variant="contained" color="primary">
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleDelete}>
                     DELETE
                 </Button>
             </div>
