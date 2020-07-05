@@ -16,7 +16,9 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'baseline'
     },
     history: {
-        marginTop: theme.spacing(8)
+        marginTop: theme.spacing(8),
+        margin: 'auto',
+        width: '90%'
     },
     delete: {
         display: 'flex',

@@ -37,7 +37,7 @@ const Product = ({product, loading, error, ...props}) => {
                                     beginAtZero: true
                                 }
                             }]
-                        }
+                        },
                     }}
                 />
             </div>
