@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import {Line} from 'react-chartjs-2';
 import {productHistoryToLineData} from "../../lib/utils/chart-converters";
 import {prettyDateTimeString} from "../../lib/utils/date-utils";
+import {averagePrice} from "../../lib/utils/stats-utils";
 
 const Product = ({product, loading, error, ...props}) => {
     const classes = useStyles();
@@ -42,13 +43,16 @@ const Product = ({product, loading, error, ...props}) => {
             </div>
             <div className={classes.stats}>
                 <div className={classes.statsItem}>
-                    Current price: <strong>{product.currentPrice} {product.currency}</strong>
+                    Current price: <strong>{product.currentPrice.toFixed(2)} {product.currency}</strong>
                 </div>
                 <div className={classes.statsItem}>
-                    Lowest price: <strong>{product.lowestPrice} {product.currency}</strong>
+                    Lowest price: <strong>{product.lowestPrice.toFixed(2)} {product.currency}</strong>
                 </div>
                 <div className={classes.statsItem}>
                     Last check: <strong>{prettyDateTimeString(product.lastUpdateDate)}</strong>
+                </div>
+                <div className={classes.statsItem}>
+                    Average price: <strong>{averagePrice(product.history).toFixed(2)} {product.currency}</strong>
                 </div>
                 {/*// TODO: Add other stats*/}
             </div>

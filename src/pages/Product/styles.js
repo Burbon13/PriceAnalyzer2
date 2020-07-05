@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     stats: {
         marginTop: theme.spacing(4),
         display: 'flex',
+        flexWrap: 'wrap',
     },
     statsItem: {
         borderWidth: '2px',
