@@ -7,6 +7,10 @@ import prettyDateString from '../../lib/utils'
 const ProductListItem = ({product}) => {
     const classes = useStyles();
 
+    const onManageClicked = () => {
+
+    };
+
     return (
         <Paper variant={"outlined"} className={classes.root}>
             <div className={classes.item}>
