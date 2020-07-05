@@ -2,7 +2,7 @@ import React from "react"
 import useStyles from "./styles";
 import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/Button";
-import prettyDateString from '../../lib/utils'
+import {prettyDateTimeString} from '../../lib/utils/date-utils'
 
 const ProductListItem = ({product}) => {
     const classes = useStyles();
@@ -25,7 +25,7 @@ const ProductListItem = ({product}) => {
                 Lowest price: {product.lowestPrice} {product.currency}
             </Paper>
             <Paper variant={"outlined"} className={classes.item}>
-                {prettyDateString(product.lastUpdateDate)}
+                {prettyDateTimeString(product.lastUpdateDate)}
             </Paper>
             <Paper variant={"outlined"} className={classes.item}>
                 {product.store}

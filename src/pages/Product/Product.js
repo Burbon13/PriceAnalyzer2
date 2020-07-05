@@ -1,13 +1,69 @@
 import React from "react";
 import useStyles from "./styles";
 import {connect} from "react-redux";
-
+import Button from '@material-ui/core/Button';
+import {Line} from 'react-chartjs-2';
+import {productHistoryToLineData} from "../../lib/utils/chart-converters";
+import {prettyDateTimeString} from "../../lib/utils/date-utils";
 
 const Product = ({product, loading, error, ...props}) => {
     const classes = useStyles();
 
     return (
-        <div>{product.name}</div>
+        <div className={classes.root}>
+            <div className={classes.heading}>
+                <div className={classes.naming}>
+                    <div>
+                        <h1>
+                            {product.name}
+                        </h1>
+                    </div>
+                    <div>
+                        &nbsp; from {product.store}
+                    </div>
+                </div>
+                <Button variant="contained" color="primary" href={product.link} target="_blank">
+                    OPEN WEB PAGE
+                </Button>
+            </div>
+            <div className={classes.history}>
+                <Line
+                    data={productHistoryToLineData(product.history)}
+                    options={{
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }}
+                />
+            </div>
+            <div className={classes.stats}>
+                <div className={classes.statsItem}>
+                    Current price: <strong>{product.currentPrice} {product.currency}</strong>
+                </div>
+                <div className={classes.statsItem}>
+                    Lowest price: <strong>{product.lowestPrice} {product.currency}</strong>
+                </div>
+                <div className={classes.statsItem}>
+                    Last check: <strong>{prettyDateTimeString(product.lastUpdateDate)}</strong>
+                </div>
+                {/*// TODO: Add other stats*/}
+            </div>
+            <div className={classes.settings}>
+                {/*// TODO*/}
+            </div>
+            <div className={classes.delete}>
+                <Button variant="contained" color="primary" className={classes.modifyButton}>
+                    MODIFY
+                </Button>
+                <Button variant="contained" color="primary">
+                    DELETE
+                </Button>
+            </div>
+        </div>
     );
 };
 
