@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import useStyles from "./styles";
 import {connect} from "react-redux";
 import Button from '@material-ui/core/Button';
@@ -6,31 +6,27 @@ import {Line} from 'react-chartjs-2';
 import {productHistoryToLineData} from "../../lib/utils/chart-converters";
 import {prettyDateTimeString} from "../../lib/utils/date-utils";
 import {averagePrice} from "../../lib/utils/stats-utils";
-import {useAlert} from "react-alert";
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 const Product = ({product, loading, error, ...props}) => {
     const classes = useStyles();
-    const alert = useAlert();
+    const [open, setOpen] = useState(false);
 
-    const handleDelete = () => {
-        alert.show("Are you sure you want to delete?", {
-            title: "DELETE ACTION!",
-            type: "Info",
-            actions: [
-                {
-                    copy: "Delete",
-                    onClick: () => {
+    const handleDeleteClickOpen = () => {
+        setOpen(true);
+    };
 
-                    }
-                },
-                {
-                    copy: "Cancel",
-                    onClick: () => {
+    const handleDeleteClose = () => {
+        setOpen(false);
+    };
 
-                    }
-                },
-            ]
-        });
+    const deleteProduct = () => {
+        console.log('Deleting product');
+        handleDeleteClose();
     };
 
     return (
@@ -89,9 +85,30 @@ const Product = ({product, loading, error, ...props}) => {
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleDelete}>
+                    onClick={handleDeleteClickOpen}>
                     DELETE
                 </Button>
+                <Dialog
+                    open={open}
+                    onClose={handleDeleteClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">Delete this product?</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            Are you sure wou want to delete this product? This action is irreversible!
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleDeleteClose} color="primary" autoFocus>
+                            Cancel
+                        </Button>
+                        <Button onClick={deleteProduct} color="primary">
+                            DELETE
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </div>
         </div>
     );
