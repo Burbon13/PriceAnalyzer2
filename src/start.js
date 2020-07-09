@@ -3,11 +3,14 @@ const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const isDev = require('electron-is-dev');
 const path = require('path');
-
 let mainWindow;
 
 function createWindow() {
-    mainWindow = new BrowserWindow({width: 800, height: 600});
+    mainWindow = new BrowserWindow({
+        width: 1600,
+        height: 800,
+        webPreferences: {webSecurity: false}
+    });
 
     mainWindow.loadURL(
         isDev
@@ -20,7 +23,12 @@ function createWindow() {
     });
 
     mainWindow.removeMenu();
+
+    mainWindow.webContents.openDevTools()
 }
+
+// Temporary solution for CORS policy
+app.commandLine.appendSwitch('disable-features', 'OutOfBlinkCors');
 
 app.on('ready', createWindow);
 

@@ -1,5 +1,7 @@
 import React from "react";
 import useStyles from "./styles";
+import Button from "@material-ui/core/Button";
+import {getLatestProductDetails} from "../../lib/html-analytics/analytics";
 
 const Settings = () => {
     const classes = useStyles();
@@ -7,6 +9,11 @@ const Settings = () => {
     return (
         <div>
             Settings
+            <Button onClick={() => {
+                getLatestProductDetails();
+            }}>
+                TEST
+            </Button>
         </div>
     );
 };
