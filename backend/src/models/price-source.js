@@ -2,6 +2,7 @@ class PriceSource {
     constructor(sourceName, link, history, priceExtractorSettings) {
         this.sourceName = sourceName;
         this.history = history;
+        this.link = link;
         this.priceExtractorSettings = priceExtractorSettings;
     }
 

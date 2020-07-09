@@ -1,5 +1,5 @@
 const express = require('express');
-const logger = require('./src/utils/logger');
+const logger = require('./utils/logger');
 
 logger.info('Starting server');
 
@@ -15,7 +15,7 @@ app.get('/test', (req, res) => res.send('Server working! Hello world!'));
 
 
 
-const productRepository = require('./src/data/ProductRepository');
+const productRepository = require('./data/product-repository');
 
 
 
