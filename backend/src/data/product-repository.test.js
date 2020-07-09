@@ -74,4 +74,11 @@ describe('CRUD Product operations', () => {
         expect(fetchedProduct.priceSources).toHaveLength(1);
         expect(fetchedProduct.priceSources[0].link).toEqual('https://www.sample.com');
     });
+
+    test('Update Product name', async () => {
+        const productId = (await productRepository.findOne({name: 'iPhone'}))._id;
+        await productRepository.updateOne({_id: productId}, {name: 'iPhone X'});
+        const newNamedProduct = await productRepository.findOne({_id: productId});
+        expect(newNamedProduct.name).toEqual('iPhone X');
+    });
 });
