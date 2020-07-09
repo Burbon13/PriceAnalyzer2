@@ -5,7 +5,10 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "devStart": "nodemon --ignore 'db/' app.js"
+    "start": "nodemon app.js"
+  },
+  "nodemonConfig": {
+    "ignore": ["db/*"]
   },
   "author": "",
   "license": "ISC",
