@@ -1,5 +1,6 @@
 class Product {
-    Product(name, brand, dateAdded, priceSources) {
+    constructor(id = null, name, brand, dateAdded, priceSources) {
+        this.id = null;
         this.name = name;
         this.brand = brand;
         this.dateAdded = dateAdded;
@@ -8,6 +9,15 @@ class Product {
 
     toString() {
         return `[Product name="${this.name}" brand="${this.brand}"]`
+    }
+
+    toPureObject() {
+        return {
+            id: this.id,
+            name: this.name,
+            brand: this.brand,
+            dateAdded: this.dateAdded
+        }
     }
 }
 

@@ -1,5 +1,5 @@
 class PriceExtractorSettings {
-    PriceExtractorSettings(link) {
+    constructor(link) {
         this.link = link;
     }
 }

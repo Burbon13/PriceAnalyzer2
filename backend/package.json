@@ -5,12 +5,13 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "devStart": "nodemon --ignore 'db/' app.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "nedb-promises": "^4.0.3",
     "winston": "^3.2.1"
   },
   "devDependencies": {

@@ -1,5 +1,5 @@
 class PriceSource {
-    PriceSource(sourceName, link, history, priceExtractorSettings) {
+    constructor(sourceName, link, history, priceExtractorSettings) {
         this.sourceName = sourceName;
         this.history = history;
         this.priceExtractorSettings = priceExtractorSettings;
