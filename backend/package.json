@@ -24,6 +24,7 @@
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "nedb-promises": "^4.0.3",
+    "node-html-parser": "^1.2.20",
     "winston": "^3.2.1"
   },
   "devDependencies": {
