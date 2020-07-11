@@ -1,4 +1,12 @@
 class PriceSource {
+
+    /**
+     *
+     * @param sourceName
+     * @param link
+     * @param history
+     * @param priceExtractorSettings
+     */
     constructor(sourceName, link, history, priceExtractorSettings) {
         this.sourceName = sourceName;
         this.history = history;

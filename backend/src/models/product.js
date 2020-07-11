@@ -1,4 +1,12 @@
 class Product {
+
+    /**
+     * @param name -
+     * @param brand
+     * @param dateAdded
+     * @param priceSources
+     * @param id
+     */
     constructor(name, brand, dateAdded, priceSources, id = null) {
         this.id = null;
         this.name = name;

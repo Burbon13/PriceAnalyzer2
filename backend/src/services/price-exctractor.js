@@ -1,6 +1,6 @@
 const logger = require('./src/utils/logger');
 
-class PriceExctractor {
+class PriceExtractor {
 
     extractPrice(product) {
         logger.info(`Extracting price for ${product.toString()}`);
