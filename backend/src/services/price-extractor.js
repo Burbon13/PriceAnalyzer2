@@ -17,11 +17,23 @@ class PriceExtractor {
 
     }
 
+    /**
+     *
+     * @param text
+     * @returns {{price: number, currency: string}}
+     */
     textToPriceAndCurrency(text) {
-        return {
+        const priceAndCurrency = {
             price: this.textToPrice(text),
             currency: this.textToCurrency(text)
+        };
+        if (priceAndCurrency.currency === '$') {
+            priceAndCurrency.currency = 'dollar';
         }
+        if (priceAndCurrency.currency === '€') {
+            priceAndCurrency.currency = 'euro';
+        }
+        return priceAndCurrency;
     }
 
     /**

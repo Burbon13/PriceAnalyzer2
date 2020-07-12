@@ -248,3 +248,57 @@ describe('Retrieve currency from string', () => {
         expect(action).toThrowError('Given text does not contain exactly one currency!');
     });
 });
+
+describe('Retrieve price and currency from string', () => {
+    let priceExtractor;
+
+    beforeAll(() => {
+        priceExtractor = new PriceExtractor();
+    });
+
+    test('Combination test nr 1', () => {
+        const priceAndCurrency = priceExtractor.textToPriceAndCurrency('683.99 ron');
+        expect(priceAndCurrency).toEqual({
+            price: 68399,
+            currency: 'ron'
+        });
+    });
+
+    test('Combination test nr 2', () => {
+        const priceAndCurrency = priceExtractor.textToPriceAndCurrency('683.994,78 $');
+        expect(priceAndCurrency).toEqual({
+            price: 68399478,
+            currency: 'dollar'
+        });
+    });
+
+    test('Combination test nr 3', () => {
+        const priceAndCurrency = priceExtractor.textToPriceAndCurrency('683 994,78€ ');
+        expect(priceAndCurrency).toEqual({
+            price: 68399478,
+            currency: 'euro'
+        });
+    });
+
+    test('Combination test nr 4', () => {
+        const priceAndCurrency = priceExtractor.textToPriceAndCurrency('683 994,78euros ');
+        expect(priceAndCurrency).toEqual({
+            price: 68399478,
+            currency: 'euro'
+        });
+    });
+
+    test('Missing price', () => {
+        const action = () => {
+            priceExtractor.textToPriceAndCurrency('dollar');
+        };
+        expect(action).toThrowError('Given text does not contain exactly one price!');
+    });
+
+    test('Missing currency', () => {
+        const action = () => {
+            priceExtractor.textToPriceAndCurrency('2134.42');
+        };
+        expect(action).toThrowError('Given text does not contain exactly one currency!');
+    });
+});
