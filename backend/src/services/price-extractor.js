@@ -25,11 +25,12 @@ class PriceExtractor {
     }
 
     /**
-     *
-     * @param text
+     * Extracts the currency, ignoring the price.
+     * @param text - the input text to be processed.
+     * @returns {string} - the found currency
      */
     textToCurrency(text) {
-        const currencyText = text.toLowerCase().match(/(roni|dollars|euros|ron|euro|dollar|$|€)/g);
+        const currencyText = text.toLowerCase().match(/(ron|euro|dollar|\$|€)/g);
         if (currencyText === null || currencyText.length !== 1) {
             throw new Error('Given text does not contain exactly one currency!');
         }
@@ -39,7 +40,7 @@ class PriceExtractor {
     /**
      * Extracts the price, ignoring the decimals.
      * E.g. a price of 123.43 will be returned as 12343.
-     * @param text - the input text to be processes
+     * @param text - the input text to be processed.
      * @returns {number} the actual value
      */
     textToPrice(text) {

@@ -146,3 +146,105 @@ describe('Retrieve price from string', () => {
         expect(action).toThrowError('Given text does not contain exactly one price!');
     });
 });
+
+describe('Retrieve currency from string', () => {
+    let priceExtractor;
+
+    beforeAll(() => {
+        priceExtractor = new PriceExtractor();
+    });
+
+    test('Ron extraction', () => {
+        const actualCurrency = priceExtractor.textToCurrency('123ron');
+        expect(actualCurrency).toEqual('ron');
+    });
+
+    test('Ron extraction', () => {
+        const actualCurrency = priceExtractor.textToCurrency('123.432Ron');
+        expect(actualCurrency).toEqual('ron');
+    });
+
+    test('Ron extraction', () => {
+        const actualCurrency = priceExtractor.textToCurrency('12,43.43RON');
+        expect(actualCurrency).toEqual('ron');
+    });
+
+    test('Euro extraction', () => {
+        const actualCurrency = priceExtractor.textToCurrency('123 Euro');
+        expect(actualCurrency).toEqual('euro');
+    });
+
+    test('Euro extraction', () => {
+        const actualCurrency = priceExtractor.textToCurrency('123.432euros');
+        expect(actualCurrency).toEqual('euro');
+    });
+
+    test('Euro extraction', () => {
+        const actualCurrency = priceExtractor.textToCurrency('12,43.43Euros');
+        expect(actualCurrency).toEqual('euro');
+    });
+
+    test('Dollar extraction', () => {
+        const actualCurrency = priceExtractor.textToCurrency('123 DOLLARS');
+        expect(actualCurrency).toEqual('dollar');
+    });
+
+    test('Dollar extraction', () => {
+        const actualCurrency = priceExtractor.textToCurrency('123.432 dollar');
+        expect(actualCurrency).toEqual('dollar');
+    });
+
+    test('Dollar extraction', () => {
+        const actualCurrency = priceExtractor.textToCurrency('12,43.43Edollar');
+        expect(actualCurrency).toEqual('dollar');
+    });
+
+    test('Dollar extraction', () => {
+        const actualCurrency = priceExtractor.textToCurrency('123 DOLLARS');
+        expect(actualCurrency).toEqual('dollar');
+    });
+
+    test('Dollar extraction', () => {
+        const actualCurrency = priceExtractor.textToCurrency('123.432 dollar');
+        expect(actualCurrency).toEqual('dollar');
+    });
+
+    test('Dollar extraction', () => {
+        const actualCurrency = priceExtractor.textToCurrency('12,43.43Edollar');
+        expect(actualCurrency).toEqual('dollar');
+    });
+
+    test('€ extraction', () => {
+        const actualCurrency = priceExtractor.textToCurrency('123 €');
+        expect(actualCurrency).toEqual('€');
+    });
+
+    test('€ extraction', () => {
+        const actualCurrency = priceExtractor.textToCurrency('12,43€');
+        expect(actualCurrency).toEqual('€');
+    });
+
+    test('$ extraction', () => {
+        const actualCurrency = priceExtractor.textToCurrency('123 $');
+        expect(actualCurrency).toEqual('$');
+    });
+
+    test('$ extraction', () => {
+        const actualCurrency = priceExtractor.textToCurrency('12,43$');
+        expect(actualCurrency).toEqual('$');
+    });
+
+    test('No currency - Exception expected', () => {
+        const action = () => {
+            priceExtractor.textToCurrency('2134.42');
+        };
+        expect(action).toThrowError('Given text does not contain exactly one currency!');
+    });
+
+    test('Multiple currencies found - Exception expected', () => {
+        const action = () => {
+            priceExtractor.textToCurrency('2134.42ron $ euro');
+        };
+        expect(action).toThrowError('Given text does not contain exactly one currency!');
+    });
+});
