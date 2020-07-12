@@ -93,3 +93,56 @@ describe('Retrieving text within HTML element based on id or class', () => {
         expect(fetchedText).toEqual('');
     });
 });
+
+describe('Retrieve price from string', () => {
+    let priceExtractor;
+
+    beforeAll(() => {
+        priceExtractor = new PriceExtractor();
+    });
+
+
+    test('Price without decimals extraction', () => {
+        const actualPrice = priceExtractor.textToPrice('123');
+        expect(actualPrice).toEqual(123);
+    });
+
+    test('Price with decimals extraction', () => {
+        const actualPrice = priceExtractor.textToPrice('546.55');
+        expect(actualPrice).toEqual(54655);
+    });
+
+    test('Price with decimals and multiple dots extraction', () => {
+        const actualPrice = priceExtractor.textToPrice('123,546.55');
+        expect(actualPrice).toEqual(12354655);
+    });
+
+    test('Price with decimals and multiple dots extraction', () => {
+        const actualPrice = priceExtractor.textToPrice('123.546,55');
+        expect(actualPrice).toEqual(12354655);
+    });
+
+    test('Price with multiple spaces extraction', () => {
+        const actualPrice = priceExtractor.textToPrice('123 432');
+        expect(actualPrice).toEqual(123432);
+    });
+
+    test('Price with dots, spaces and commas extraction', () => {
+        const actualPrice = priceExtractor.textToPrice('123 . 546 ,55');
+        expect(actualPrice).toEqual(12354655);
+    });
+
+    test('No price in the string (empty string) - Exception expected', () => {
+        const action = () => {
+            priceExtractor.textToPrice('');
+        };
+        expect(action).toThrowError('Given text does not contain exactly one price!');
+    });
+
+    test('Multiple prices in the string - Exception expected', () => {
+        const action = () => {
+            priceExtractor.textToPrice('213ron 434.345$ 3123');
+        };
+        expect(action).toThrowError('Given text does not contain exactly one price!');
+    });
+});

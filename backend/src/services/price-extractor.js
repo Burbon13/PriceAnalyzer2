@@ -3,6 +3,9 @@ const parser = require('node-html-parser');
 
 class PriceExtractor {
 
+    constructor() {
+    }
+
     extractPrice(product) {
         logger.info(`Extracting price for ${product.toString()}`);
         product.priceSources.forEach((priceSource) => {
@@ -12,6 +15,40 @@ class PriceExtractor {
 
     extractPriceFromPriceSource(priceSource) {
 
+    }
+
+    textToPriceAndCurrency(text) {
+        return {
+            price: this.textToPrice(text),
+            currency: this.textToCurrency(text)
+        }
+    }
+
+    /**
+     *
+     * @param text
+     */
+    textToCurrency(text) {
+        const currencyText = text.toLowerCase().match(/(roni|dollars|euros|ron|euro|dollar|$|€)/g);
+        if (currencyText === null || currencyText.length !== 1) {
+            throw new Error('Given text does not contain exactly one currency!');
+        }
+        return currencyText[0];
+    }
+
+    /**
+     * Extracts the price, ignoring the decimals.
+     * E.g. a price of 123.43 will be returned as 12343.
+     * @param text - the input text to be processes
+     * @returns {number} the actual value
+     */
+    textToPrice(text) {
+        const noSpaceText = text.replace(/[\s,.]/g, '');
+        const priceText = noSpaceText.match(/[1-9][0-9]*/g);
+        if (priceText === null || priceText.length !== 1) {
+            throw new Error('Given text does not contain exactly one price!');
+        }
+        return parseInt(priceText[0]);
     }
 
     /**
