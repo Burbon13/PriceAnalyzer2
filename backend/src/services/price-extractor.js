@@ -18,7 +18,13 @@ class PriceExtractor {
     }
 
     /**
-     *
+     * Retrieves the price from a string. Expected string format
+     * should be: <price><currency>.
+     * All spaces, dots and commas are ignored. If there are not exactly
+     * one price and currency, an Error will be thrown.
+     * $ will be converted to dollar
+     * € weill be converted to euro
+     * E.g. "234.546 $" will return price 23456 and currency dollar.
      * @param text
      * @returns {{price: number, currency: string}}
      */
