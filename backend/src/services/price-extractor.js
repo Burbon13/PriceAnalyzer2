@@ -63,7 +63,8 @@ class PriceExtractor {
      * Retrieves the current price from a HTML page, based on the
      * domain-specific configuration.
      * @param htmlPage - the HTML content.
-     * @param domain - the domain of the site (e.g. www.shopsample.org).
+     * @param domain - the domain of the site (e.g. www.shopsample.org),
+     * must be specified inside the config file!
      * @returns {{price: number, currency: string}}
      */
     processHtmlPage(htmlPage, domain) {

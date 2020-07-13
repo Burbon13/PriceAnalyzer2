@@ -326,6 +326,15 @@ describe('Process complete HTML page', () => {
         priceExtractor = new PriceExtractor();
     });
 
+    test('Unknown domain', () => {
+        const htmlContent = '<div class="col-sm-7"><p class="product-new-price">'
+            + '2.994<sup>99</sup> <span>$</span></p></div>';
+        const action = () => {
+            priceExtractor.processHtmlPage(htmlContent, 'unknown.org');
+        };
+        expect(action).toThrow();
+    });
+
     test('eMag sample html component', () => {
         const htmlContent = '<div class="col-sm-7"><p class="product-new-price">'
             + '2.994<sup>99</sup> <span>Lei</span></p></div>';
@@ -334,5 +343,23 @@ describe('Process complete HTML page', () => {
             price: 299499,
             currency: 'ron'
         });
+    });
+
+    test('eMag invalid html component - missing currency', () => {
+        const htmlContent = '<div class="col-sm-7"><p class="product-new-price">'
+            + '2.994<sup>99</sup> <span></span></p></div>';
+        const action = () => {
+            priceExtractor.processHtmlPage(htmlContent, 'emag.ro');
+        };
+        expect(action).toThrowError('Given text does not contain exactly one currency!');
+    });
+
+    test('eMag invalid html component - missing price', () => {
+        const htmlContent = '<div class="col-sm-7"><p class="product-new-price">'
+            + '<sup></sup> <span>Lei</span></p></div>';
+        const action = () => {
+            priceExtractor.processHtmlPage(htmlContent, 'emag.ro');
+        };
+        expect(action).toThrowError('Given text does not contain exactly one price!');
     });
 });
