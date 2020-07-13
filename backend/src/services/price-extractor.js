@@ -1,11 +1,25 @@
 const logger = require('../utils/logger');
 const parser = require('node-html-parser');
+const extractDomain = require('extract-domain');
+const fetch = require('node-fetch');
+const extractorConfig = require('./config');
 
+/**
+ *
+ */
 class PriceExtractor {
 
+    /**
+     *
+     */
     constructor() {
+        this.extractorConfig = extractorConfig;
     }
 
+    /**
+     *
+     * @param product
+     */
     extractPrice(product) {
         logger.info(`Extracting price for ${product.toString()}`);
         product.priceSources.forEach((priceSource) => {
@@ -13,8 +27,57 @@ class PriceExtractor {
         });
     }
 
+    /**
+     *
+     * @param priceSource = {
+     *     url: string
+     * }
+     */
     extractPriceFromPriceSource(priceSource) {
+        logger.info(`Extracting price from ${priceSource}.`);
+        const domain = extractDomain(priceSource.url);
 
+        if (!(domain in this.extractorConfig)) {
+            logger.info(`No configuration exists form domain ${domain}`);
+            throw new Error(`No configuration exists form domain ${domain}`);
+        }
+
+        logger.info(`Fetching page from ${priceSource.url}`);
+        fetch(priceSource.url)
+            .then(result => {
+                if (!result.ok) {
+                    logger.error(`Error while fetching html page: ${result.statusText}`);
+                    throw new Error(`Error while fetching html page: ${result.statusText}`);
+                }
+                logger.info('Successful fetch!');
+                return result;
+            })
+            .then(result => {
+                const priceAndCurrency = this.processHtmlPage(result, domain);
+                priceAndCurrency.date = new Date();
+                logger.info(priceAndCurrency);
+            });
+    }
+
+    /**
+     * Retrieves the current price from a HTML page, based on the
+     * domain-specific configuration.
+     * @param htmlPage - the HTML content.
+     * @param domain - the domain of the site (e.g. www.shopsample.org).
+     * @returns {{price: number, currency: string}}
+     */
+    processHtmlPage(htmlPage, domain) {
+        logger.info(`Processing html page from ${domain}`);
+        const currentConfig = this.extractorConfig[domain];
+        let htmlContent = htmlPage;
+        if (currentConfig.htmlIdentification === 'class') {
+            htmlContent = this.retrieveTextFromHtmlClassTag(htmlPage, currentConfig.htmlClass);
+        } else if (currentConfig.htmlIdentification === 'id') {
+            htmlContent = this.retrieveTextFromHtmlIdTag(htmlPage, currentConfig.htmlId);
+        } else {
+            logger.warn('No valid HTML identification configuration found!');
+        }
+        return this.textToPriceAndCurrency(htmlContent);
     }
 
     /**
@@ -39,6 +102,9 @@ class PriceExtractor {
         if (priceAndCurrency.currency === '€') {
             priceAndCurrency.currency = 'euro';
         }
+        if (priceAndCurrency.currency === 'lei') {
+            priceAndCurrency.currency = 'ron';
+        }
         return priceAndCurrency;
     }
 
@@ -48,7 +114,7 @@ class PriceExtractor {
      * @returns {string} - the found currency
      */
     textToCurrency(text) {
-        const currencyText = text.toLowerCase().match(/(ron|euro|dollar|\$|€)/g);
+        const currencyText = text.toLowerCase().match(/(lei|ron|euro|dollar|\$|€)/g);
         if (currencyText === null || currencyText.length !== 1) {
             throw new Error('Given text does not contain exactly one currency!');
         }

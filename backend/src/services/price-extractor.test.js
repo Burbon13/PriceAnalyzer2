@@ -288,6 +288,22 @@ describe('Retrieve price and currency from string', () => {
         });
     });
 
+    test('Combination test nr 5 - Lei to ron', () => {
+        const priceAndCurrency = priceExtractor.textToPriceAndCurrency('683 994,78lei ');
+        expect(priceAndCurrency).toEqual({
+            price: 68399478,
+            currency: 'ron'
+        });
+    });
+
+    test('Combination test nr 6 Lei to ron', () => {
+        const priceAndCurrency = priceExtractor.textToPriceAndCurrency('683 994,78 Lei ');
+        expect(priceAndCurrency).toEqual({
+            price: 68399478,
+            currency: 'ron'
+        });
+    });
+
     test('Missing price', () => {
         const action = () => {
             priceExtractor.textToPriceAndCurrency('dollar');
@@ -300,5 +316,23 @@ describe('Retrieve price and currency from string', () => {
             priceExtractor.textToPriceAndCurrency('2134.42');
         };
         expect(action).toThrowError('Given text does not contain exactly one currency!');
+    });
+});
+
+describe('Process complete HTML page', () => {
+    let priceExtractor;
+
+    beforeAll(() => {
+        priceExtractor = new PriceExtractor();
+    });
+
+    test('eMag sample html component', () => {
+        const htmlContent = '<div class="col-sm-7"><p class="product-new-price">'
+            + '2.994<sup>99</sup> <span>Lei</span></p></div>';
+        const result = priceExtractor.processHtmlPage(htmlContent, 'emag.ro');
+        expect(result).toEqual({
+            price: 299499,
+            currency: 'ron'
+        });
     });
 });

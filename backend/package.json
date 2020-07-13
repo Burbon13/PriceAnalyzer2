@@ -22,8 +22,10 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "extract-domain": "^2.2.1",
     "fs": "0.0.1-security",
     "nedb-promises": "^4.0.3",
+    "node-fetch": "^2.6.0",
     "node-html-parser": "^1.2.20",
     "winston": "^3.2.1"
   },
