@@ -418,4 +418,60 @@ describe('Integration tests', () => {
             const result = await priceExtractor.extractPriceFromPriceSource({url: url});
         });
     });
+
+    describe('PriceGarage integration tests', () => {
+        let priceExtractor;
+
+        beforeAll(() => {
+            priceExtractor = new PriceExtractor();
+        });
+
+        test('Suite 1', async () => {
+            const url = 'https://www.pcgarage.ro/ultrabook/asus/14-vivobook-14-x403fa-fhd-procesor-intel-core-i7-8565u-8m-cache-up-to-460-ghz-8gb-512gb-ssd-gma-uhd-620-endless-os-silver-blue/';
+            const result = await priceExtractor.extractPriceFromPriceSource({url: url});
+        });
+
+        test('Suite 2', async () => {
+            const url = 'https://www.pcgarage.ro/tastaturi/logitech/k280e/';
+            const result = await priceExtractor.extractPriceFromPriceSource({url: url});
+        });
+    });
+
+    // TODO: Make it work
+    describe('f64 integration tests', () => {
+        let priceExtractor;
+
+        beforeAll(() => {
+            priceExtractor = new PriceExtractor();
+        });
+
+        test('Suite 1', async () => {
+            const url = 'https://www.f64.ro/samyang-8mm-t3-8-vdslr-csii-sony-a/p?ref=prod_tab';
+            const result = await priceExtractor.extractPriceFromPriceSource({url: url});
+        });
+
+        test('Suite 2', async () => {
+            const url = 'https://www.f64.ro/wacom-intuos-pro-s-2019/p?ref=prod_tab';
+            const result = await priceExtractor.extractPriceFromPriceSource({url: url});
+        });
+    });
+
+    // TODO: Make it work
+    describe('Flanco integration tests', () => {
+        let priceExtractor;
+
+        beforeAll(() => {
+            priceExtractor = new PriceExtractor();
+        });
+
+        test('Suite 1', async () => {
+            const url = 'https://www.flanco.ro/boxa-portabila-jbl-charge-4-bluetooth-rosu.html';
+            const result = await priceExtractor.extractPriceFromPriceSource({url: url});
+        });
+
+        test('Suite 2', async () => {
+            const url = 'https://www.flanco.ro/boxa-portabila-akai-abts-h12l-bluetooth-negru.html';
+            const result = await priceExtractor.extractPriceFromPriceSource({url: url});
+        });
+    });
 });

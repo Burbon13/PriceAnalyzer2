@@ -16,13 +16,29 @@ const extractionConfig = {
         shopName: 'Altex',
         website: 'https://www.altex.ro'
     },
-    'mediagalaxy.ro': {
+    'pcgarage.ro': {
         htmlIdentification: 'class',
-        htmlClass: 'Price-current',
+        htmlClass: 'ps_sell_price',
+        currency: 'ron',
+        priceHasDecimals: true,
+        shopName: 'PcGarage',
+        website: 'https://www.pcgarage.ro'
+    },
+    'f64.ro': {
+        htmlIdentification: 'class',
+        htmlClass: 'skuBestPrice', // Problem when "resigilat" is available
+        currency: 'ron',
+        priceHasDecimals: true,
+        shopName: 'f64',
+        website: 'https://www.f64.ro'
+    },
+    'flanco.ro': {
+        htmlIdentification: 'class',
+        htmlClass: 'price',
         currency: 'lei',
         priceHasDecimals: true,
-        shopName: 'MediaGalaxy',
-        website: 'https://www.mediagalaxy.ro'
+        shopName: 'Flanco',
+        website: 'https://www.flanco.ro'
     }
 };
 
