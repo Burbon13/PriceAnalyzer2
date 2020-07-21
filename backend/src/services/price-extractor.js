@@ -1,7 +1,6 @@
 const logger = require('../utils/logger');
 const parser = require('node-html-parser');
 const extractDomain = require('extract-domain');
-const axios = require('axios');
 const extractorConfig = require('./config');
 const fetch = require("node-fetch");
 
@@ -20,12 +19,15 @@ class PriceExtractor {
     /**
      *
      * @param product
+     * @returns {[]}
      */
-    extractPrice(product) {
+    extractPrices(product) {
         logger.info(`Extracting price for ${product.toString()}`);
+        const prices = [];
         product.priceSources.forEach((priceSource) => {
-
+            prices.push(this.extractPriceFromPriceSource(priceSource));
         });
+        return prices;
     }
 
     /**

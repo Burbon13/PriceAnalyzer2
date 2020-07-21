@@ -51,7 +51,7 @@ class ProductRepository {
      */
     removeOne(props) {
         logger.info(`Removing product with ${JSON.stringify(props, null, 2)}`);
-        return this.store.remove(props);
+        return this.store.remove(props, {});
     }
 
     /**

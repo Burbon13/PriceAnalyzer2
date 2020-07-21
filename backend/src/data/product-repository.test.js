@@ -1,7 +1,5 @@
 const ProductRepository = require('./product-repository');
 const Product = require('../models/product');
-const PriceExtractionSettings = require('../models/price-extraction-settings');
-const PriceSource = require('../models/price-source');
 const fs = require('fs');
 
 describe('CRUD Product operations', () => {
@@ -62,17 +60,11 @@ describe('CRUD Product operations', () => {
     });
 
     test('Manipulate Product with all subclasses set', async () => {
-        const priceExtractionSettings = new PriceExtractionSettings();
-        const priceSource = new PriceSource(
-            'Source name',
-            'https://www.sample.com',
-            [],
-            priceExtractionSettings);
-        const product = new Product('x30', 'Huawei', new Date(), [priceSource]);
+        const product = new Product('x30', 'Huawei', new Date(), ['https://www.sample.com']);
         await productRepository.add(product);
         const fetchedProduct = await productRepository.findOne({name: 'x30'});
         expect(fetchedProduct.priceSources).toHaveLength(1);
-        expect(fetchedProduct.priceSources[0].link).toEqual('https://www.sample.com');
+        expect(fetchedProduct.priceSources[0]).toEqual('https://www.sample.com');
     });
 
     test('Update Product name', async () => {
