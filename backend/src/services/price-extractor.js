@@ -1,8 +1,9 @@
 const logger = require('../utils/logger');
 const parser = require('node-html-parser');
 const extractDomain = require('extract-domain');
-const fetch = require('node-fetch');
+const axios = require('axios');
 const extractorConfig = require('./config');
+const fetch = require("node-fetch");
 
 /**
  *
@@ -28,13 +29,15 @@ class PriceExtractor {
     }
 
     /**
-     *
+     * Given a price source (url), the domain will be determined and the price +
+     * currency will be retrieved from the HTML page. If the domain is unknown
+     * (i.e. not specified in the config file, exception will be thrown).
      * @param priceSource = {
      *     url: string
      * }
      */
-    extractPriceFromPriceSource(priceSource) {
-        logger.info(`Extracting price from ${priceSource}.`);
+    async extractPriceFromPriceSource(priceSource) {
+        logger.info(`Extracting price from ${JSON.stringify(priceSource, null, 2)}.`);
         const domain = extractDomain(priceSource.url);
 
         if (!(domain in this.extractorConfig)) {
@@ -43,20 +46,21 @@ class PriceExtractor {
         }
 
         logger.info(`Fetching page from ${priceSource.url}`);
-        fetch(priceSource.url)
-            .then(result => {
-                if (!result.ok) {
-                    logger.error(`Error while fetching html page: ${result.statusText}`);
-                    throw new Error(`Error while fetching html page: ${result.statusText}`);
-                }
-                logger.info('Successful fetch!');
-                return result;
-            })
-            .then(result => {
-                const priceAndCurrency = this.processHtmlPage(result, domain);
-                priceAndCurrency.date = new Date();
-                logger.info(priceAndCurrency);
-            });
+        let result;
+
+        try {
+            result = await fetch(priceSource.url, {method: 'GET', mode: 'no-cors'});
+        } catch (e) {
+            logger.error(`Error occurred while fetching page: ${e.message}`);
+            throw new Error(`Error occurred while fetching page: ${e.message}`);
+        }
+        logger.info('Successful fetch!');
+
+        const htmlContent = await result.text();
+        const priceAndCurrency = this.processHtmlPage(htmlContent, domain);
+        priceAndCurrency.date = new Date();
+        logger.info(`Data fetched: ${priceAndCurrency}`);
+        return priceAndCurrency;
     }
 
     /**
@@ -106,6 +110,8 @@ class PriceExtractor {
         if (priceAndCurrency.currency === 'lei') {
             priceAndCurrency.currency = 'ron';
         }
+        logger.info('Price and currency found: '
+            + `${JSON.stringify(priceAndCurrency, null, 2)}`);
         return priceAndCurrency;
     }
 
@@ -148,6 +154,7 @@ class PriceExtractor {
         logger.info(`Retrieving text from html class tag = "${tagClass}"`);
         const element = parser.parse(html).querySelector(`.${tagClass}`);
         if (element === null) {
+            logger.warn(`No tag with class "${tagClass}" was found`);
             return null;
         }
         return element.text;

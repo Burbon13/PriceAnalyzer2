@@ -363,3 +363,18 @@ describe('Process complete HTML page', () => {
         expect(action).toThrowError('Given text does not contain exactly one price!');
     });
 });
+
+describe('Integration tests', () => {
+    describe('eMag integration tests', () => {
+        let priceExtractor;
+
+        beforeAll(() => {
+            priceExtractor = new PriceExtractor();
+        });
+
+        test('Suite 1', async () => {
+            const url = 'https://www.emag.ro/televizor-samsung-43tu7072-109-cm-smart-4k-ultra-hd-led-ue43tu7072uxxh/pd/DPKJQMMBM/';
+            const result = await priceExtractor.extractPriceFromPriceSource({url: url});
+        });
+    });
+});
