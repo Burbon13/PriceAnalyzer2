@@ -145,33 +145,41 @@ class PriceExtractor {
 
     /**
      * Retrieves the text inside a HTML tag (INCLUDING SUB-ELEMENTS' TEXTS).
-     * If multiple HTML tags have the same class, the first one is chosen.
+     * If multiple HTML tags have the same class, the first one is chosen by default,
+     * set tagIndex to chose another one.
      * @param html - the web page to be parsed
      * @param tagClass - the class of the tag to be searched
+     * @param tagIndex - the position of the desired tag
      * @returns {string} - the text inside of the tag if found, null otherwise
      */
-    retrieveTextFromHtmlClassTag(html, tagClass) {
+    retrieveTextFromHtmlClassTag(html, tagClass, tagIndex = 0) {
         logger.info(`Retrieving text from html class tag = "${tagClass}"`);
-        const element = parser.parse(html).querySelector(`.${tagClass}`);
-        if (element === null) {
+        const elements = parser.parse(html).querySelectorAll(`.${tagClass}`);
+        if (elements.length === 0) {
             logger.warn(`No tag with class "${tagClass}" was found`);
             return null;
         }
+        const element = elements[tagIndex];
         return element.text;
     }
 
     /**
      * Retrieves the text inside a HTML tag (INCLUDING SUB-ELEMENTS' TEXTS).
+     * If multiple HTML tags have the same id, the first one is chosen by default,
+     * set tagIndex to chose another one.
      * @param html - the web page to be parsed
      * @param tagId - the id of the tag to be searched
+     * @param tagIndex - the position of the desired tag
      * @returns {string} - the text inside of the tag if found, null otherwise
      */
-    retrieveTextFromHtmlIdTag(html, tagId) {
+    retrieveTextFromHtmlIdTag(html, tagId, tagIndex = 0) {
         logger.info(`Retrieving text from html id tag = "${tagId}"`);
-        const element = parser.parse(html).querySelector(`#${tagId}`);
-        if (element === null) {
+        const elements = parser.parse(html).querySelectorAll(`#${tagId}`);
+        if (elements.length === 0) {
+            logger.warn(`No tag with id "${tagId}" was found`);
             return null;
         }
+        const element = elements[tagIndex];
         return element.text;
     }
 }

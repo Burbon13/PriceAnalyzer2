@@ -92,6 +92,8 @@ describe('Retrieving text within HTML element based on id or class', () => {
         const fetchedText = priceExtractor.retrieveTextFromHtmlIdTag(html, 'cls1');
         expect(fetchedText).toEqual('');
     });
+
+
 });
 
 describe('Retrieve price from string', () => {
@@ -456,7 +458,7 @@ describe('Integration tests', () => {
         });
     });
 
-    // TODO: Make it work
+    // TODO: Make it work; MIGHT USE querySelectorAll and specify which index is
     describe('Flanco integration tests', () => {
         let priceExtractor;
 
