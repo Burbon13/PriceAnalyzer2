@@ -7,6 +7,22 @@ const extractionConfig = {
         priceHasDecimals: true,
         shopName: 'eMag',
         website: 'https://www.emag.ro'
+    },
+    'altex.ro': {
+        htmlIdentification: 'class',
+        htmlClass: 'Price-current',
+        currency: 'lei',
+        priceHasDecimals: true,
+        shopName: 'Altex',
+        website: 'https://www.altex.ro'
+    },
+    'mediagalaxy.ro': {
+        htmlIdentification: 'class',
+        htmlClass: 'Price-current',
+        currency: 'lei',
+        priceHasDecimals: true,
+        shopName: 'MediaGalaxy',
+        website: 'https://www.mediagalaxy.ro'
     }
 };
 

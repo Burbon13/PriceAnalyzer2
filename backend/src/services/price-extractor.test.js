@@ -376,5 +376,46 @@ describe('Integration tests', () => {
             const url = 'https://www.emag.ro/televizor-samsung-43tu7072-109-cm-smart-4k-ultra-hd-led-ue43tu7072uxxh/pd/DPKJQMMBM/';
             const result = await priceExtractor.extractPriceFromPriceSource({url: url});
         });
+
+        test('Suite 2', async () => {
+            const url = 'https://www.emag.ro/telefon-mobil-myphone-maestro-dual-sim-silver-tel000481/pd/DRYTDMMBM/';
+            const result = await priceExtractor.extractPriceFromPriceSource({url: url});
+        });
+    });
+
+    describe('Altex integration tests', () => {
+        let priceExtractor;
+
+        beforeAll(() => {
+            priceExtractor = new PriceExtractor();
+        });
+
+        test('Suite 1', async () => {
+            const url = 'https://altex.ro/telefon-mobil-myria-senior-my9071bk-256mb-ram-3g-dual-sim-black/cpd/GSMMY9071BK/';
+            const result = await priceExtractor.extractPriceFromPriceSource({url: url});
+        });
+
+        test('Suite 2', async () => {
+            const url = 'https://altex.ro/sistem-de-navigatie-gps-smailo-hd5-mediateck-3351-468-mhz-5-inch-64mb-micro-sd-usb-lifetime-update/cpd/NAVSMAILOHD5EUL/';
+            const result = await priceExtractor.extractPriceFromPriceSource({url: url});
+        });
+    });
+
+    describe('MediaGalaxy integration tests', () => {
+        let priceExtractor;
+
+        beforeAll(() => {
+            priceExtractor = new PriceExtractor();
+        });
+
+        test('Suite 1', async () => {
+            const url = 'https://mediagalaxy.ro/bere-blonda-noroc-bax-3l-x-6-sticle/cpd/BAR594207000130/';
+            const result = await priceExtractor.extractPriceFromPriceSource({url: url});
+        });
+
+        test('Suite 2', async () => {
+            const url = 'https://mediagalaxy.ro/uscator-de-par-philips-thermoprotect-ionic-hp8232-00-2200w-6-viteze-6-trepte-temperatura-alb/cpd/USCHP8232/';
+            const result = await priceExtractor.extractPriceFromPriceSource({url: url});
+        });
     });
 });
