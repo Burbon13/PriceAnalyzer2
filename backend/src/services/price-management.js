@@ -17,7 +17,7 @@ class PriceManagement {
     }
 
     /**
-     * Adds the product and fetches the current prices from the given urls.
+     * Adds the product, fetches the current prices from the given urls and saves them.
      * @param name - the name of the product.
      * @param brand - the brand of the product.
      * @param urls - array of the multiple product addresses (strings).

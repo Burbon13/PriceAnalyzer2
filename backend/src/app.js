@@ -13,11 +13,4 @@ app.listen(port, () => console.log(`Example app listening at http://localhost:${
 logger.info('Initializing Express routes');
 app.get('/test', (req, res) => res.send('Server working! Hello world!'));
 
-
-
-const productRepository = require('./data/product-repository');
-
-
-
-
 logger.info('Server initialization finished successfully!');
